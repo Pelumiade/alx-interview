@@ -1,26 +1,26 @@
 #!/usr/bin/python3
-def canUnlockAll(boxes):
-    n = len(boxes)
-    keys = set(boxes[0]) # start with the keys in the first box
-    unlocked = set([0]) # start with the first box unlocked
-    
-    while True:
-        previous_unlocked = unlocked.copy()
-        
-        for i in range(n):
-            if i in unlocked: # if the box is already unlocked
-                keys.update(boxes[i]) # add its keys to our set
-                continue
-                
-            if i not in keys: # if we don't have the key to unlock the box
-                continue
-                
-            # unlock the box and add its keys to our set
-            unlocked.add(i)
-            keys.update(boxes[i])
-            
-        if unlocked == previous_unlocked: # if we couldn't unlock any more boxes
-            break
-            
-    return len(unlocked) == n # check if all boxes are unlocked
+"""
+You have n number of locked boxes in front of you.
+Each box is numbered sequentially
+from 0 to n - 1 and each box may
+contain keys to the other boxes.
+"""
 
+
+def canUnlockAll(boxes):
+    """
+     a method that determines if all the boxes can be opened.
+    :param boxes:
+    :return: True or False
+    """
+    if not boxes or type(boxes) is not list:
+        return False
+
+    unlocked = [0]
+    for n in unlocked:
+        for key in boxes[n]:
+            if key not in unlocked and key < len(boxes):
+                unlocked.append(key)
+    if len(unlocked) == len(boxes):
+        return True
+    return False
